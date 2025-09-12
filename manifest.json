@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitHubPRコピーくん",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "GitHubのPRタイトルをリンク付きでコピーします",
   "permissions": [
     "activeTab",
@@ -9,9 +9,10 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://github.com/*/*/pull/*"],
+      "matches": ["https://github.com/*"],
       "js": ["content.js"],
-      "css": ["styles.css"]
+      "css": ["styles.css"],
+      "run_at": "document_end"
     }
   ],
   "icons": {

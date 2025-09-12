@@ -1,7 +1,22 @@
+// ボタンを追加する関数
 function addCopyButton() {
-  const prTitle = document.querySelector('.js-issue-title');
-  if (!prTitle || document.querySelector('#pr-copy-btn')) return;
+  // PRページかどうかチェック
+  if (!window.location.pathname.includes('/pull/')) {
+    return;
+  }
 
+  // すでにボタンが存在する場合は何もしない
+  if (document.querySelector('#pr-copy-btn')) {
+    return;
+  }
+
+  // PRタイトル要素を探す
+  const prTitle = document.querySelector('.js-issue-title');
+  if (!prTitle || !prTitle.parentElement) {
+    return;
+  }
+
+  // コピーボタンを作成
   const copyBtn = document.createElement('button');
   copyBtn.id = 'pr-copy-btn';
   copyBtn.className = 'pr-copy-btn';
@@ -13,6 +28,7 @@ function addCopyButton() {
   `;
   copyBtn.title = 'Copy PR title with URL';
 
+  // クリックイベントを追加
   copyBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     const title = prTitle.textContent.trim();
@@ -21,7 +37,6 @@ function addCopyButton() {
     const plainText = title;
 
     try {
-      // Create a ClipboardItem with both HTML and plain text
       const clipboardItem = new ClipboardItem({
         'text/html': new Blob([htmlContent], { type: 'text/html' }),
         'text/plain': new Blob([plainText], { type: 'text/plain' })
@@ -29,6 +44,7 @@ function addCopyButton() {
       
       await navigator.clipboard.write([clipboardItem]);
       
+      // 成功フィードバック
       copyBtn.classList.add('copied');
       const originalHTML = copyBtn.innerHTML;
       copyBtn.innerHTML = `
@@ -43,47 +59,23 @@ function addCopyButton() {
       }, 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
-      copyBtn.style.color = '#cf222e';
-      copyBtn.title = 'Failed to copy';
-      setTimeout(() => {
-        copyBtn.style.color = '';
-        copyBtn.title = 'Copy PR title with URL';
-      }, 2000);
     }
   });
 
+  // ボタンを挿入
   prTitle.parentElement.insertBefore(copyBtn, prTitle);
 }
 
-// Only observe the main content area for better performance
+// DOM変更を監視
 const observer = new MutationObserver(() => {
   addCopyButton();
 });
 
-// Start observing when the page is ready
-const startObserving = () => {
-  const mainContent = document.querySelector('main') || document.body;
-  observer.observe(mainContent, {
-    childList: true,
-    subtree: true
-  });
-};
+// 監視を開始
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
 
-if (document.querySelector('main')) {
-  startObserving();
-} else {
-  // Wait for main element to be available
-  const tempObserver = new MutationObserver(() => {
-    if (document.querySelector('main')) {
-      tempObserver.disconnect();
-      startObserving();
-    }
-  });
-  tempObserver.observe(document.body, { childList: true, subtree: true });
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', addCopyButton);
-} else {
-  addCopyButton();
-}
+// 初回実行
+addCopyButton();
