@@ -1,0 +1,35 @@
+.pr-copy-btn {
+  margin-right: 8px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  color: #57606a;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+  vertical-align: middle;
+}
+
+.pr-copy-btn:hover {
+  background-color: #f6f8fa;
+  border-color: #8b949e;
+  color: #24292f;
+}
+
+.pr-copy-btn:active {
+  background-color: #f3f4f6;
+  border-color: #6e7681;
+}
+
+.pr-copy-btn.copied {
+  color: #1a7f37;
+  border-color: #1a7f37;
+  background-color: #dafbe1;
+}
+
+.pr-copy-btn svg {
+  width: 16px;
+  height: 16px;
+}
