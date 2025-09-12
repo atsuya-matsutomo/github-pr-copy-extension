@@ -11,6 +11,7 @@ GitHub PR（Pull Request）のタイトルをリンク付きでコピーするCh
 ## 対応ブラウザ
 
 - Google Chrome
+- Arc
 - その他Chromium系ブラウザ
 
 ## インストール方法
@@ -29,9 +30,8 @@ git clone https://github.com/YOUR_USERNAME/github-pr-copy-extension.git
 ### ブラウザへの導入手順
 
 1. ブラウザで拡張機能管理ページを開く
-   - **Chrome**: `chrome://extensions/`
-   - **Edge**: `edge://extensions/`
-   - **Brave**: `brave://extensions/`
+   - **Google Chrome**: `chrome://extensions/`
+   - **Arc**: `arc://extensions/`
 
 2. 右上の「デベロッパーモード」または「開発者モード」をONにする
 
