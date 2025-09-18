@@ -4,7 +4,6 @@
   "version": "1.0.1",
   "description": "GitHubのPRタイトルをリンク付きでコピーします",
   "permissions": [
-    "activeTab",
     "clipboardWrite"
   ],
   "content_scripts": [
