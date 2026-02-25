@@ -10,8 +10,9 @@ function addCopyButton() {
     return;
   }
 
-  // PRタイトル要素を探す
-  const prTitle = document.querySelector('.js-issue-title');
+  // PRタイトル要素を探す（新旧両方のGitHub UIに対応）
+  const prTitle = document.querySelector('.js-issue-title')
+    || document.querySelector('[data-component="PH_Title"] .markdown-title');
   if (!prTitle || !prTitle.parentElement) {
     return;
   }
